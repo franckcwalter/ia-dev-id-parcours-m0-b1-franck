@@ -14,7 +14,7 @@ fichiers à la **racine de ce repo** que tu as créé via « Use this template �
 
 | Tâche du brief | Durée | Mini-cours associé |
 |---|---|---|
-| 1. Prise en main du squelette | 30 min | (cf. [`README` à la racine](../README.md)) |
+| 1. Prise en main du squelette | 30 min | (cf. [`README` à la racine](../README_REPO.md)) |
 | 2. Analyse de l'existant | 30 min | — |
 | 3. Implémenter `/predict` | 1 h 30 | [`01_FastAPI_essentiel.md`](./01_FastAPI_essentiel.md) |
 | 4. Logging Loguru | 30 min | [`03_Loguru_essentiel.md`](./03_Loguru_essentiel.md) |
@@ -42,7 +42,7 @@ pytest                            # → 2 tests passent
 ```
 
 Si ces 3 commandes marchent, ton poste est OK pour la journée. Pour le
-démarrage complet, cf. le [`README.md`](../README.md) à la racine du repo.
+démarrage complet, cf. le [`README.md`](../README_REPO.md) à la racine du repo.
 
 ---
 
