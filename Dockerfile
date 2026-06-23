@@ -1,6 +1,4 @@
 # Bonus (Critères de performance § 6) :
-#   - Utilisateur non-root (USER non-root après mkdir + chown)
-#   - HEALTHCHECK qui interroge /health
 #   - Multi-stage build pour réduire la taille finale
 #
 # Commande type pour build et lancer une fois ce fichier complété :
@@ -19,6 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app/
 COPY model/ ./model
 
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
+USER appuser
+
 EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
