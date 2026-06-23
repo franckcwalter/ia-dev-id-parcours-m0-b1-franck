@@ -23,6 +23,7 @@ import pandas as pd
 import joblib
 from fastapi import FastAPI, HTTPException
 from loguru import logger
+import time
 
 from app.schemas import HealthResponse, MachineInput, PredictionResponse
 
@@ -30,6 +31,17 @@ MODEL_PATH = Path(__file__).resolve().parents[1] / "model" / "model.joblib"
 
 # Mémoire d'application — peuplée par le lifespan
 state: dict[str, Any] = {}
+
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
+logger.add(
+    LOG_DIR / "api.log",
+    rotation="5 MB",
+    retention="7 days",
+    compression="zip",
+    level="INFO",
+    enqueue=True
+)
 
 
 @asynccontextmanager
@@ -84,17 +96,25 @@ def health() -> HealthResponse:
 @app.post("/predict", response_model=PredictionResponse)
 def predict(item: MachineInput) -> PredictionResponse:
     """Prédit la criticité d'une machine à partir de ses caractéristiques."""
+
+
     model = state.get("model")
     if model is None:
         raise HTTPException(status_code=503, detail="Modèle non chargé")
 
-    df = pd.DataFrame([item.model_dump()])
+    data = item.model_dump()
+    logger.info(f"Entrée: {data}")
 
-    classe = str(model.predict(df)[0])
-    liste_probas = model.predict_proba(df)[0]
+    df = pd.DataFrame([data])
+
+    t0 = time.perf_counter()
+    predicted_class = str(model.predict(df)[0])
+    probabilities = model.predict_proba(df)[0]
+    duree_ms = (time.perf_counter() - t0) * 1000
+
     classes = model.classes_
-    probabilites_par_classe = {str(c): float(p) for c, p in zip(classes, liste_probas)}
+    probabilities_by_class = {str(c): float(p) for c, p in zip(classes, probabilities)}
 
-    logger.info(f"Prédiction : {classe} | entrée={item.model_dump()}")
+    logger.info(f"Durée prédiction : {duree_ms:.1f} ms")
 
-    return PredictionResponse(criticite= classe,probabilites=probabilites_par_classe)
+    return PredictionResponse(criticite=predicted_class, probabilites=probabilities_by_class)

@@ -210,10 +210,10 @@ ce moment-là.
 
 ## Vérification (checklist apprenant)
 
-- [ ] Mon endpoint `/predict` logge une ligne INFO avant chaque appel modèle.
-- [ ] Mon endpoint logge une ligne INFO après, avec le résultat et la durée en ms.
-- [ ] Le dossier `logs/` est créé automatiquement.
-- [ ] `logs/` est dans mon `.gitignore`.
-- [ ] La rotation est configurée (j'ai testé en regénérant 5+ Mo de logs).
-- [ ] Je sais expliquer en 1 minute la différence **DEBUG / INFO / WARNING / ERROR**.
-- [ ] Je sais ce que fait `enqueue=True` (thread-safe, indispensable en API).
+- [x] Mon endpoint `/predict` logge une ligne INFO avant chaque appel modèle.
+- [x] Mon endpoint logge une ligne INFO après, avec le résultat et la durée en ms.
+- [x] Le dossier `logs/` est créé automatiquement.
+- [x] `logs/` est dans mon `.gitignore`.
+- [x] La rotation est configurée (j'ai testé en regénérant 5+ Mo de logs).
+- [x] Je sais expliquer en 1 minute la différence **DEBUG / INFO / WARNING / ERROR**.
+- [x] Je sais ce que fait `enqueue=True` (thread-safe, indispensable en API).
