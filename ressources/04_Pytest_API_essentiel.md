@@ -252,10 +252,10 @@ toujours.**
 
 ## Vérification (checklist apprenant)
 
-- [ ] J'ai un fichier `tests/test_predict.py` avec **3 tests minimum**.
-- [ ] `pytest -v` affiche tous les tests PASSED.
-- [ ] J'ai utilisé une **fixture** pour partager le `TestClient`.
-- [ ] J'ai utilisé `@pytest.mark.parametrize` au moins une fois.
+- [x] J'ai un fichier `tests/test_predict.py` avec **3 tests minimum**.
+- [x] `pytest -v` affiche tous les tests PASSED.
+- [x] J'ai utilisé une **fixture** pour partager le `TestClient`.
+- [x] J'ai utilisé `@pytest.mark.parametrize` au moins une fois.
 - [ ] Je sais expliquer pourquoi le `with TestClient(app) as ...:` est nécessaire.
-- [ ] Je sais ce que veut dire **HTTP 422** et qui le déclenche (Pydantic).
-- [ ] Je sais comment lancer un seul test ciblé : `pytest tests/test_predict.py::test_predict_cas_valide -v`.
+- [x] Je sais ce que veut dire **HTTP 422** et qui le déclenche (Pydantic).
+- [x] Je sais comment lancer un seul test ciblé : `pytest tests/test_predict.py::test_predict_cas_valide -v`.
