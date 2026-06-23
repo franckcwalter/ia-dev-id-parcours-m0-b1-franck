@@ -209,10 +209,10 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ## Vérification (checklist apprenant)
 
-- [ ] `docker --version` affiche bien une version ≥ 24.
-- [ ] Mon `Dockerfile` build sans erreur (`docker build .`).
-- [ ] Mon `.dockerignore` exclut `.venv`, `__pycache__`, `tests`, `.git`.
-- [ ] L'image fait moins de 500 Mo (`docker images`).
-- [ ] Mon conteneur démarre, `/health` répond depuis l'extérieur.
-- [ ] Je sais expliquer la différence entre **image** et **conteneur** en 1 minute.
-- [ ] Je sais pourquoi on copie `requirements.txt` AVANT le code (cache des couches).
+- [x] `docker --version` affiche bien une version ≥ 24.
+- [x] Mon `Dockerfile` build sans erreur (`docker build .`).
+- [x] Mon `.dockerignore` exclut `.venv`, `__pycache__`, `tests`, `.git`.
+- [x] L'image fait moins de 500 Mo (`docker images`). (591Mo)
+- [x] Mon conteneur démarre, `/health` répond depuis l'extérieur.
+- [x] Je sais expliquer la différence entre **image** et **conteneur** en 1 minute.
+- [x] Je sais pourquoi on copie `requirements.txt` AVANT le code (cache des couches).
