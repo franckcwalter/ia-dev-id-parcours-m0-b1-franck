@@ -115,6 +115,7 @@ def predict(item: MachineInput) -> PredictionResponse:
     classes = model.classes_
     probabilities_by_class = {str(c): float(p) for c, p in zip(classes, probabilities)}
 
+    logger.info(f"Sortie: {predicted_class}")
     logger.info(f"Durée prédiction : {duree_ms:.1f} ms")
 
     return PredictionResponse(criticite=predicted_class, probabilites=probabilities_by_class)
