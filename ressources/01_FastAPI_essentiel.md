@@ -229,9 +229,9 @@ authentification, base de données partagée. Pas obligatoire pour M0-B1.
 
 ## Vérification (checklist apprenant)
 
-- [ ] Mon API répond 200 sur `GET /health`.
-- [ ] J'ai implémenté `POST /predict` qui retourne la classe + les probabilités.
-- [ ] L'interface Swagger `/docs` affiche bien mes deux endpoints avec leur schéma.
-- [ ] Une entrée invalide renvoie bien 422 sans que j'écrive de code spécifique.
-- [ ] Je sais expliquer en 2 minutes la différence entre **FastAPI et Flask**.
+- [x] Mon API répond 200 sur `GET /health`.
+- [x] J'ai implémenté `POST /predict` qui retourne la classe + les probabilités.
+- [x] L'interface Swagger `/docs` affiche bien mes deux endpoints avec leur schéma.
+- [x] Une entrée invalide renvoie bien 422 sans que j'écrive de code spécifique.
+- [x] Je sais expliquer en 2 minutes la différence entre **FastAPI et Flask**.
 - [ ] Je sais expliquer ce que fait le `lifespan` et pourquoi il est utile pour un service ML.

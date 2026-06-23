@@ -18,6 +18,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
+import pandas as pd
 
 import joblib
 from fastapi import FastAPI, HTTPException
@@ -82,32 +83,18 @@ def health() -> HealthResponse:
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict(item: MachineInput) -> PredictionResponse:
-    """Prédit la criticité d'une machine à partir de ses caractéristiques.
+    """Prédit la criticité d'une machine à partir de ses caractéristiques."""
+    model = state.get("model")
+    if model is None:
+        raise HTTPException(status_code=503, detail="Modèle non chargé")
 
-    🎯 **À COMPLÉTER PAR L'APPRENANT.**
+    df = pd.DataFrame([item.model_dump()])
 
-    Indices d'implémentation :
+    classe = str(model.predict(df)[0])
+    liste_probas = model.predict_proba(df)[0]
+    classes = model.classes_
+    probabilites_par_classe = {str(c): float(p) for c, p in zip(classes, liste_probas)}
 
-    1. Construire un DataFrame pandas à 1 ligne à partir de `item.model_dump()`.
-       Le pipeline scikit-learn attend les colonnes dans le même ordre qu'à
-       l'entraînement (cf. `model/train_baseline.py`, `NUM_FEATURES` + `CAT_FEATURES`).
-    2. Récupérer le modèle via `state["model"]`.
-    3. Appeler `model.predict(df)[0]` pour obtenir la classe prédite (str).
-    4. Appeler `model.predict_proba(df)[0]` pour obtenir les probabilités.
-       Les classes correspondantes sont dans `model.classes_`.
-    5. Construire et retourner un `PredictionResponse`.
-    6. Logger l'entrée + la classe prédite + le temps de réponse via Loguru.
+    logger.info(f"Prédiction : {classe} | entrée={item.model_dump()}")
 
-    Args:
-        item: caractéristiques de la machine (cf. `schemas.MachineInput`).
-
-    Returns:
-        PredictionResponse avec la classe prédite et les probabilités.
-    """
-    raise HTTPException(
-        status_code=501,
-        detail=(
-            "Endpoint /predict à implémenter — voir TODO dans app/main.py "
-            "et le mini-cours 01_FastAPI_essentiel.md."
-        ),
-    )
+    return PredictionResponse(criticite= classe,probabilites=probabilites_par_classe)
