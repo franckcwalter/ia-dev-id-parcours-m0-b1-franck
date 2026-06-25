@@ -1,0 +1,10 @@
+# Dépendances de DÉVELOPPEMENT : prod + outils de test / dataset.
+# Installe tout ce qu'il faut pour bosser en local et lancer les tests.
+-r requirements.txt
+
+# Tests
+pytest>=8,<9
+httpx>=0.27,<1
+
+# Régénérer le dataset (model/train_baseline.py)
+faker>=30,<50
