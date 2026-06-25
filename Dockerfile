@@ -1,18 +1,21 @@
-# Bonus (Critères de performance § 6) :
-#   - Multi-stage build pour réduire la taille finale
-#
-# Commande type pour build et lancer une fois ce fichier complété :
-#   docker build -t fastia-maintenance:dev .
-#   docker run --rm -p 8000:8000 fastia-maintenance:dev
-#   curl http://localhost:8000/health
+# docker build -t fastia-maintenance:dev .
+# docker run --rm -p 8000:8000 fastia-maintenance:dev
+# curl http://localhost:8000/health
+
+FROM python:3.11-slim AS builder
+
+RUN python -m venv /opt/venv
+ENV PATH=/opt/venv/bin:$PATH
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:3.11-slim
 
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH=/opt/venv/bin:$PATH
+
 WORKDIR /app
-
-COPY requirements.txt .
-
-RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 COPY model/ ./model
